@@ -13,6 +13,7 @@ contract Donatex {
 
     struct DonationBox {
         address owner;
+        uint minDonation;
         uint numDonations;
         uint totalDonations;
         bool isValue;
@@ -33,14 +34,15 @@ contract Donatex {
         
     }
 
-    function claimId(bytes32 id) public {
+    function claimId(bytes32 id, uint minDonation) public {
         require(!donationBoxes[id].isValue);
-        donationBoxes[id] = DonationBox(msg.sender, 0, 0, true);
+        donationBoxes[id] = DonationBox(msg.sender, minDonation, 0, 0, true);
     }
 
     function donate(bytes32 id, bytes32 name, bytes text) payable public {
         require(donationBoxes[id].isValue);
         DonationBox storage donationBox = donationBoxes[id];
+        require(msg.value >= donationBox.minDonation);
         donations[id].push(Donation(msg.sender, msg.value, name, text));
         donationBox.totalDonations = SafeMath.add(donationBox.totalDonations, msg.value);
         donationBox.numDonations = SafeMath.add(donationBox.numDonations, 1);
