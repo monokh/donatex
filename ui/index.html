@@ -1,0 +1,39 @@
+<script src="web3.min.js"></script>
+
+<script>
+    var donatex;
+    var web3;
+    var account;
+
+    window.onload = function() {
+        const contractAddress = '0xbc12074d6ddbe6cb597bcbe47f4c3bede49770e8';
+        const contractAbi = [ { "constant": false, "inputs": [ { "name": "id", "type": "bytes32" }, { "name": "name", "type": "bytes32" }, { "name": "text", "type": "bytes" } ], "name": "donate", "outputs": [], "payable": true, "type": "function" }, { "constant": false, "inputs": [ { "name": "id", "type": "bytes32" } ], "name": "claimId", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "id", "type": "bytes32" }, { "name": "destination", "type": "address" } ], "name": "transferDonations", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "bytes32" }, { "name": "", "type": "uint256" } ], "name": "donations", "outputs": [ { "name": "owner", "type": "address" }, { "name": "donation", "type": "uint256" }, { "name": "name", "type": "bytes32" }, { "name": "text", "type": "bytes" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "bytes32" } ], "name": "donationBoxes", "outputs": [ { "name": "owner", "type": "address" }, { "name": "numDonations", "type": "uint256" }, { "name": "totalDonations", "type": "uint256" }, { "name": "isValue", "type": "bool" } ], "payable": false, "type": "function" }, { "inputs": [], "payable": false, "type": "constructor" } ];
+        web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
+        web3.eth.getAccounts().then((accounts) => {
+            if(accounts.length > 0) {
+                account = accounts[0];
+            }
+        });
+        donatex = new web3.eth.Contract(contractAbi, contractAddress);
+    };
+
+    function donate() {
+        const id = web3.utils.sha3('https://mytesturl.com');
+        const value = document.getElementById('donation').value;
+        const name = document.getElementById('name').value;
+        const comment = document.getElementById('name').value;
+        donatex.methods.donate(id, web3.utils.fromAscii(name, 32), web3.utils.fromAscii(comment)).send({from: account, value: web3.utils.toWei(value, 'ether')}).then((tx) => {
+            console.log(tx);
+        });
+    }
+</script>
+
+<label for="donation">Donation:</label>
+<input type="number" id="donation" value="0.01" step="0.01" /> ETH
+<br />
+<label for="name">Name:</label>
+<input type="text" id="name" />
+<br />
+<label for="comment">Comment:</label>
+<input type="text" id="comment" />
+<button onclick="donate()">Send</button>
