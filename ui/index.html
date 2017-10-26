@@ -44,7 +44,15 @@
         const value = document.getElementById('donation').value;
         const name = document.getElementById('name').value;
         const comment = document.getElementById('comment').value;
-        donatex.methods.donate(id, web3.utils.fromAscii(name, 32), web3.utils.fromAscii(comment)).send({from: account, value: web3.utils.toWei(value, 'ether')}).then((tx) => {
+        donatex.methods.donate(
+            id, 
+            web3.utils.fromAscii(name, 32), 
+            web3.utils.fromAscii(comment))
+        .send({
+            from: account, 
+            value: web3.utils.toWei(value, 'ether'), 
+            gasPrice: web3.utils.toWei(0.1, 'gwei')})
+        .then((tx) => {
             console.log(tx);
         });
     }
