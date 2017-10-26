@@ -4,7 +4,6 @@ const fs = require('fs')
 let mnemonic;
 if (fs.existsSync('secrets.json')) {
   mnemonic = JSON.parse(fs.readFileSync('secrets.json', 'utf8')).mnemonic;
-  console.log(mnemonic);
 }
 
 module.exports = {
@@ -25,7 +24,8 @@ module.exports = {
     mainnet: {
       provider: new HDWalletProvider(mnemonic, 'https://mainnet.infura.io/'),
       network_id: 3,
-      gasPrice: 100000000
+      gasPrice: 100000000,
+      gas: 600000
     }
   }
 };
