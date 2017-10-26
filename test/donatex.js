@@ -39,7 +39,7 @@ contract('Donatex', function (accounts) {
       assert.strictEqual(donationBox[3].toString(), web3.toWei(1, 'ether'));
     })
     .catch((err) => { throw new Error(err) })
-  })
+  });
   
   it('donation less than minimum fails', function () {
     const id = web3.sha3('https://myurl.com/test-post');
@@ -62,6 +62,6 @@ contract('Donatex', function (accounts) {
       assert.fail();
     })
     .catch(assertVMException);
-  })
+  });
 
 });
