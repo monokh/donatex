@@ -93,10 +93,10 @@
     "1509047253172": {
       "events": {},
       "links": {},
-      "address": "0xbc12074d6ddbe6cb597bcbe47f4c3bede49770e8",
-      "updated_at": 1509047509315
+      "address": "0x12d1cb090b747cfeeb207569087c24694ec2cfb8",
+      "updated_at": 1509057510848
     }
   },
   "schema_version": "0.0.5",
-  "updated_at": 1509050351723
+  "updated_at": 1509057510848
 }

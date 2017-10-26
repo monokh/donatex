@@ -159,10 +159,10 @@
     "1509047253172": {
       "events": {},
       "links": {},
-      "address": "0x79b9a3badc79e6c4795d35bdfe8901ea91963181",
-      "updated_at": 1509047509315
+      "address": "0x26e45f599a3d39d11566807d58e4f5819fbdf33f",
+      "updated_at": 1509057510848
     }
   },
   "schema_version": "0.0.5",
-  "updated_at": 1509050351724
+  "updated_at": 1509057510848
 }
